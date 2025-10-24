@@ -57,23 +57,8 @@ public class UserService {
 
 
     }
-    // SIGNUP AS OWNER
-//    public ResponseEntity<?> createAdminUser(Users userDto){
-//        Optional<Users> adminUser = usersRepository.findByUsername((userDto.getUsername()));
-//        if(adminUser.isPresent()){
-//            return new ResponseEntity<>("Admin already enter", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//        Optional<Users> adminEmail = usersRepository.findByEmail(userDto.getEmail());
-//        if(adminEmail.isPresent()){
-//            return new ResponseEntity<>("Email already taken", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//        String encryptedPassword = BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt(5));
-//        userDto.setPassword(encryptedPassword);
-//
-//        userDto.setRole("ROLE_ADMIN");
-//        Users saveAdmin = usersRepository.save(userDto);
-//        return new ResponseEntity<>(saveAdmin, HttpStatus.CREATED);
-//    }
+    // SIGNUP AS ADMIN
+
     public ResponseEntity<?> createAdminUser(Users userDto){
         Optional<Users> adminUser = usersRepository.findByUsername((userDto.getUsername()));
         if(adminUser.isPresent()){
