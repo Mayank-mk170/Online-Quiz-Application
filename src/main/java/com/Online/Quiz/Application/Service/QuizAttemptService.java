@@ -53,11 +53,7 @@ public class QuizAttemptService {
                 resultTest = "Incorrect";
                 incorrectCount++;
             }
-            //  Avoid NullPointerException
-//            boolean isCorrect = submittedAnswer != null && submittedAnswer.equalsIgnoreCase(correctAnswer);
-//            String resultText = isCorrect ? "Correct" : "Incorrect";
 
-//            Map<String, Object> feedback = new HashMap<>();
             LinkedHashMap<String, Object> feedback = new LinkedHashMap<>();
 
             feedback.put("question", question.getTitle());
@@ -74,12 +70,7 @@ public class QuizAttemptService {
             feedback.put("correctAnswer", correctAnswer);
 
 
-//            if (submittedAnswer != null && submittedAnswer.equalsIgnoreCase(correctAnswer)) {
-//                feedback.put("result", "Correct ");
-//                score++;
-//            } else {
-//                feedback.put("result", "Incorrect ");
-//            }
+
             feedbackList.add(feedback);
         }
         QuizAttempt attempt = new QuizAttempt();
