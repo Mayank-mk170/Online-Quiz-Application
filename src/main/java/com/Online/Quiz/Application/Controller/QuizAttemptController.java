@@ -3,6 +3,7 @@ package com.Online.Quiz.Application.Controller;
 import com.Online.Quiz.Application.Service.QuizAttemptService;
 import com.Online.Quiz.Application.Service.QuizService;
 import com.Online.Quiz.Application.entity.Quiz;
+import com.Online.Quiz.Application.entity.QuizAttempt;
 import com.Online.Quiz.Application.repository.QuizRepository;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,19 +46,42 @@ public class QuizAttemptController {
 
 
     // Submit answers
-    @PostMapping("/{quizId}/submit")
+    @PostMapping("/{quizId}/submit/{username}")
     public ResponseEntity<?> submitQuiz(
             @PathVariable Long quizId,
+            @PathVariable String username,
             @RequestBody Map<String, String> userAnswers) {
 
         Map<Long, String> answersMap = new HashMap<>();
         for(Map.Entry<String, String> entry : userAnswers.entrySet()){
             answersMap.put(Long.parseLong(entry.getKey()), entry.getValue());
         }
-        Map<String, Object> result = quizAttemptService.takeQuiz(quizId, answersMap);
+        Map<String, Object> result = quizAttemptService.takeQuiz(username,quizId, answersMap);
         return ResponseEntity.ok(result);
     }
 
+   // Get all attempts quiz user
+   @GetMapping("/user/{username}")
+   public ResponseEntity<?> getUserAttempts(@PathVariable String username) {
+       List<QuizAttempt> attempts = quizAttemptService.getUserAttempts(username);
 
+       if (attempts.isEmpty()) {
+           return ResponseEntity.ok("No quiz attempts found for user: " + username);
+       }
+
+       return ResponseEntity.ok(attempts);
+   }
+
+    // Admin can view all quiz attempts
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllAttempts() {
+        List<QuizAttempt> allAttempts = quizAttemptService.getAllAttempts();
+
+        if (allAttempts.isEmpty()) {
+            return ResponseEntity.ok("No quiz attempts found yet.");
+        }
+
+        return ResponseEntity.ok(allAttempts);
+    }
 }
 
