@@ -57,9 +57,9 @@ public class UserService {
 
 
     }
-    // SIGNUP AS ADMIN
 
-    public ResponseEntity<?> createAdminUser(Users userDto){
+    // create admin user
+    public ResponseEntity<?> createAdminUser(Users userDto, String requesterUsername){
         Optional<Users> adminUser = usersRepository.findByUsername((userDto.getUsername()));
         if(adminUser.isPresent()){
             return new ResponseEntity<>("Admin already enter", HttpStatus.INTERNAL_SERVER_ERROR);

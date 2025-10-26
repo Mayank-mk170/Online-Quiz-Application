@@ -3,6 +3,7 @@ package com.Online.Quiz.Application.Controller;
 
 import com.Online.Quiz.Application.DTO.LoginDto;
 import com.Online.Quiz.Application.DTO.TokenDto;
+import com.Online.Quiz.Application.Service.JWTService;
 import com.Online.Quiz.Application.Service.UserService;
 import com.Online.Quiz.Application.entity.Users;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,11 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class UserController {
     private UserService userService;
+    private JWTService jwtService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JWTService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     // Signup As User
@@ -29,12 +32,24 @@ public class UserController {
         return userService.createUser(userDto);
     }
 
+
     // Signup as Admin
     @PostMapping("/signup-admin")
     public ResponseEntity<?> createAdmin(
-            @RequestBody Users userDto){
-        return userService.createAdminUser(userDto);
+            @RequestBody Users userDto,
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
+
+        String requesterUsername = null;
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7); // remove 'Bearer '
+            requesterUsername = jwtService.getUserName(token);
+        }
+
+        return userService.createAdminUser(userDto, requesterUsername);
     }
+
+
 
     // Login
     @PostMapping("/login")
