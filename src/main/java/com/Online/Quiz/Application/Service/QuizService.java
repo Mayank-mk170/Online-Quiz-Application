@@ -60,7 +60,8 @@ public class QuizService {
     // Delete quiz
     public void deleteQuiz(Long id){
         quizRepository.deleteById(id);
-//        /return ResponseEntity.badRequest().body("Quiz not found!");
     }
+
+
 
 }

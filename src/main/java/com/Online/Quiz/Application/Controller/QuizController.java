@@ -22,7 +22,7 @@ public class QuizController {
         this.quizService = quizService;
         this.quizRepository = quizRepository;
     }
-
+//
     @PostMapping("/create")
     public ResponseEntity<?> createQuiz(@RequestBody Quiz quiz){
         if (quiz.getQuestions() != null) {
