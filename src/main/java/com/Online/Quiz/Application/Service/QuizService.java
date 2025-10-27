@@ -1,8 +1,5 @@
 package com.Online.Quiz.Application.Service;
 
-import com.Online.Quiz.Application.DTO.QuestionDto;
-import com.Online.Quiz.Application.DTO.QuizDto;
-import com.Online.Quiz.Application.entity.Question;
 import com.Online.Quiz.Application.entity.Quiz;
 import com.Online.Quiz.Application.repository.QuestionRepository;
 import com.Online.Quiz.Application.repository.QuizRepository;
@@ -61,7 +58,5 @@ public class QuizService {
     public void deleteQuiz(Long id){
         quizRepository.deleteById(id);
     }
-
-
 
 }

@@ -33,10 +33,12 @@ public class QuizController {
         Quiz savedQuiz = quizRepository.save(quiz);
         return ResponseEntity.ok(savedQuiz);
     }
+
     @GetMapping("/all")
     public ResponseEntity<List<Quiz>> getAllQuizzes(){
         return quizService.getAllQuiz();
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getQuizById(@PathVariable Long id){
         return quizService.getQuizById(id);
@@ -48,7 +50,6 @@ public class QuizController {
     }
 
     @DeleteMapping("/delete/{id}")
-
     public ResponseEntity<?> deleteQuiz(@PathVariable Long id){
         quizService.deleteQuiz(id);
         return new ResponseEntity<>("Quiz deleted successfully", HttpStatus.OK);
