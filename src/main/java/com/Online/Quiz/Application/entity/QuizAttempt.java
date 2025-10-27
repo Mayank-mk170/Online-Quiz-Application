@@ -1,5 +1,6 @@
 package com.Online.Quiz.Application.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +19,16 @@ public class QuizAttempt {
 
     private String username;
 
+    private String quizTitle;
+
     private int score;
+
     private int totalQuestion;
+
     private LocalDateTime attemptedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Quiz quiz;
 
     public Long getId() {
@@ -40,6 +45,14 @@ public class QuizAttempt {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getQuizTitle() {
+        return quizTitle;
+    }
+
+    public void setQuizTitle(String quizTitle) {
+        this.quizTitle = quizTitle;
     }
 
     public int getScore() {
