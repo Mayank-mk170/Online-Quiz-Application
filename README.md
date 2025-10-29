@@ -73,7 +73,7 @@ mvn clean install
 mvn spring-boot:run
 The app runs by default on http://localhost:8080
 
-## API Endpoints
+
 ## Authentication
 Method	Endpoint	Description
 POST	/api/user/signup	Register a new user
@@ -101,7 +101,7 @@ Every API endpoint is protected via Spring Security.
 
 Role-based access control ensures admins manage quizzes, while users can only attempt them.
 
-## Documentation
+
 ## Setup Guide
 
 Configure MySQL in application.properties.
