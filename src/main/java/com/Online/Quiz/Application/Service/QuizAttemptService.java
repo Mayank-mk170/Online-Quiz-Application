@@ -23,6 +23,7 @@ public class QuizAttemptService {
         this.quizRepository = quizRepository;
         this.questionRepository = questionRepository;
         this.quizAttemptRepository = quizAttemptRepository;
+
     }
 
     public Map<String, Object> takeQuiz(String username, Long quizId, Map<Long, String> userAnswersMap) {
