@@ -3,17 +3,20 @@ package com.Online.Quiz.Application.Controller;
 
 import com.Online.Quiz.Application.DTO.LoginDto;
 import com.Online.Quiz.Application.DTO.TokenDto;
+import com.Online.Quiz.Application.DTO.UserDto;
 import com.Online.Quiz.Application.Service.JWTService;
 import com.Online.Quiz.Application.Service.UserService;
 import com.Online.Quiz.Application.entity.Users;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.Map;
-
+@Validated
 @RestController
 @RequestMapping("/api/auth")
 public class UserController {
@@ -27,8 +30,7 @@ public class UserController {
 
     // Signup As User
     @PostMapping("/signup")
-    public ResponseEntity<?> createUser(
-            @RequestBody Users userDto){
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
@@ -36,7 +38,7 @@ public class UserController {
     // Signup as Admin
     @PostMapping("/signup-admin")
     public ResponseEntity<?> createAdmin(
-            @RequestBody Users userDto,
+          @Valid  @RequestBody UserDto userDto,
             @RequestHeader(value = "Authorization", required = false) String authHeader) {
 
         String requesterUsername = null;

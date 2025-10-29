@@ -1,6 +1,9 @@
 package com.Online.Quiz.Application.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,15 +20,20 @@ public class Users {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotBlank(message = "Name cannot be blank")
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotBlank(message = "Username cannot be blank")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @Email(message = "Email cannot be blank")
     @Column(name = "email", nullable = false)
     private String email;
 
+    @NotBlank(message = "Password cannot be blank")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     @Column(name = "password", nullable = false)
     private String password;
 

@@ -2,6 +2,7 @@ package com.Online.Quiz.Application.Service;
 
 
 import com.Online.Quiz.Application.DTO.LoginDto;
+import com.Online.Quiz.Application.DTO.UserDto;
 import com.Online.Quiz.Application.entity.Users;
 import com.Online.Quiz.Application.repository.UsersRepository;
 import org.apache.catalina.User;
@@ -22,7 +23,7 @@ public class UserService {
         this.jwtService = jwtService;
     }
     // SIGNUP AS USER
-    public ResponseEntity<?> createUser(Users userDto){
+    public ResponseEntity<?> createUser(UserDto userDto){
         Optional<Users> userName = usersRepository.findByUsername(userDto.getUsername());
         if(userName.isPresent()){
             return new ResponseEntity<>("UserName already taken", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -34,10 +35,16 @@ public class UserService {
             String encryptedPassword = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(5));
             userDto.setPassword(encryptedPassword);
 
-            userDto.setRole("ROLE_USER");
+        Users user = new Users();
+        user.setName(userDto.getName());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(encryptedPassword);
+        user.setRole("ROLE_USER");
 
-            Users saveduser = usersRepository.save(userDto);
-            return new ResponseEntity<>(saveduser,HttpStatus.CREATED);
+        // Save user
+        Users savedUser = usersRepository.save(user);
+            return new ResponseEntity<>(savedUser,HttpStatus.CREATED);
         }
 
         // LOGIN VERIFY
@@ -59,7 +66,7 @@ public class UserService {
     }
 
     // create admin user
-    public ResponseEntity<?> createAdminUser(Users userDto, String requesterUsername){
+    public ResponseEntity<?> createAdminUser(UserDto userDto, String requesterUsername){
         Optional<Users> adminUser = usersRepository.findByUsername((userDto.getUsername()));
         if(adminUser.isPresent()){
             return new ResponseEntity<>("Admin already enter", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -71,9 +78,15 @@ public class UserService {
         String encryptedPassword = BCrypt.hashpw(userDto.getPassword(),BCrypt.gensalt(5));
         userDto.setPassword(encryptedPassword);
 
-        userDto.setRole("ROLE_ADMIN");
-        Users saveAdmin = usersRepository.save(userDto);
-        return new ResponseEntity<>(saveAdmin, HttpStatus.CREATED);
+        Users admin = new Users();
+        admin.setName(userDto.getName());
+        admin.setUsername(userDto.getUsername());
+        admin.setEmail(userDto.getEmail());
+        admin.setPassword(encryptedPassword);
+        admin.setRole("ROLE_ADMIN");
+
+        Users savedAdmin = usersRepository.save(admin);
+        return new ResponseEntity<>(savedAdmin, HttpStatus.CREATED);
     }
 
 }
