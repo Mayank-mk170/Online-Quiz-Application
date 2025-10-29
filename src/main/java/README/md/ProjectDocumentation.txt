@@ -1,0 +1,29 @@
+# Online Quiz Application (Backend Only)
+
+##  Project Overview
+The **Online Quiz Application** is a backend system built using **Java Spring Boot**.
+It allows users to register, take quizzes, view their scores, and track progress.
+Admins can create and manage quizzes and questions.
+
+##  Technologies Used
+- Java 17
+- Spring Boot 3.x
+- MySQL (Database)
+- JWT (Authentication)
+- BCrypt (Password Encryption)
+- Spring Web, Spring Security, Spring Data JPA
+- Postman (for API Testing)
+
+git Repository-
+https://github.com/Mayank-mk170/Online-Quiz-Application.git
+
+### 3. Database Setup
+- Create a new database in MySQL:
+  ```sql
+  CREATE DATABASE online_quiz;
+
+  spring.datasource.url=jdbc:mysql://localhost:3306/online_quiz
+  spring.datasource.username=root
+  spring.datasource.password=yourpassword
+  spring.jpa.hibernate.ddl-auto=update
+  spring.jpa.show-sql=true
